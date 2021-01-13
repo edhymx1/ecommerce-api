@@ -18,13 +18,13 @@ const savePicture = (base64image, carpet) => {
             let type = decodedImg.type;
             let extension = mime.getExtension(type);
 
-            if (!fs.existsSync(__dirname + `/../public/resources/images/${carpet}`)) {
-                fs.mkdirSync(__dirname + `/../public/resources/images/${carpet}`, { recursive: true });
+            if (!fs.existsSync(__dirname + `/../public/pictures/${carpet}`)) {
+                fs.mkdirSync(__dirname + `/../public/pictures/${carpet}`, { recursive: true });
             }
             const filename = getUniqueID() + '.' + extension;
-            const path = __dirname + `/../public/resources/images/${carpet}/` + filename;
+            const path = __dirname + `/../public/pictures/${carpet}/` + filename;
             fs.writeFileSync(path, imageBuffer, 'utf8');
-            return resolve(`/resources/images/${carpet}/` + filename);
+            return resolve(`/pictures/${carpet}/` + filename);
         } catch (error) {
             return reject(error);
         }

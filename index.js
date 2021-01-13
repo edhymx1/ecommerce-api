@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
+  require('dotenv').config();
 }
 
 const express = require('express');
@@ -23,5 +23,5 @@ app.use('/products', productsRoutes);
 app.use('/users', usersRoutes);
 
 app.listen(process.env.PORT, () => {
-    console.log('server on port', process.env.PORT);
+  console.log('server on port', process.env.PORT);
 });

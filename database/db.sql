@@ -102,9 +102,46 @@ CREATE TABLE IF NOT EXISTS product_pictures (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-INSERT INTO pictures(url) VALUES ('/images/img1.png'), ('/images/img2.png');
-INSERT INTO categories(category_name, picture_id) VALUES('category 1', 1);
-INSERT INTO categories(category_name, picture_id) VALUES('category 2', 2);
+
+-- -----------------------------------------------------
+-- Table roles
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS roles (
+  role_id INT NOT NULL AUTO_INCREMENT,
+  role VARCHAR(45) NOT NULL,
+  PRIMARY KEY (role_id))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table user_roles
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS user_roles (
+  ur_id INT NOT NULL AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  role_id INT NOT NULL,
+  PRIMARY KEY (ur_id),
+  INDEX fk_user_roles_users1_idx (user_id ASC),
+  INDEX fk_user_roles_roles1_idx (role_id ASC),
+  CONSTRAINT fk_user_roles_users1
+    FOREIGN KEY (user_id)
+    REFERENCES users (user_id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_user_roles_roles1
+    FOREIGN KEY (role_id)
+    REFERENCES roles (role_id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+INSERT INTO pictures(url) VALUES ('http://localhost:3000/pictures/categories/software.png'), ('http://localhost:3000/pictures/categories/hardware.png');
+
+INSERT INTO categories(category_name, picture_id) VALUES('software', 1);
+INSERT INTO categories(category_name, picture_id) VALUES('hardware', 2);
+
+INSERT INTO roles(role) VALUES('administrator'),('employee'),('customer');
 
 SELECT p.* FROM products p
   JOIN product_categories pc ON p.product_id = pc.product_id
